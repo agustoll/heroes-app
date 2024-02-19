@@ -3,7 +3,7 @@ import {Location} from '@angular/common';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {HeroesService} from "../services/heroes.service";
 import {HeroDto} from "../interfaces/hero";
-import {EMPTY, Observable, of, Subject, switchMap, takeUntil, tap} from "rxjs";
+import {Observable, of, Subject, switchMap, takeUntil, tap} from "rxjs";
 import {ActivatedRoute} from "@angular/router";
 
 @Component({
@@ -23,6 +23,7 @@ export class HeroComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    //create form to manage hero's info
     this.form = this.fb.group({
       id: [],
       name: ['', Validators.required],
@@ -31,6 +32,7 @@ export class HeroComponent implements OnInit {
       hairColor: [],
     });
 
+    //check if it's an editing or creation and patch form or not
     this.route.params.pipe(takeUntil(this.destroy$),
       switchMap((params) => {
         this.id = +params['id'];
@@ -50,6 +52,7 @@ export class HeroComponent implements OnInit {
   }
 
   save(): void {
+    //check if form is valid, then save the hero's info from what the user entered as data
     if (this.form.invalid) {
       return;
     }

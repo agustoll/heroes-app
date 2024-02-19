@@ -13,6 +13,7 @@ export class ConfirmationDialogComponent implements OnInit{
   constructor(@Inject(MAT_DIALOG_DATA) public data: DialogData) {
   }
 
+  //sets title and content data if it's injected
   ngOnInit(): void {
     if (this.data.title) {
       this.title = this.data.title

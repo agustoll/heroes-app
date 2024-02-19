@@ -6,7 +6,7 @@ import {HeroesService} from "../services/heroes.service";
 import {Hero, HeroDto} from "../interfaces/hero";
 import {ConfirmationDialogComponent} from "../shared/confirmation-dialog/confirmation-dialog.component";
 import {MatDialog} from "@angular/material/dialog";
-import {delay, EMPTY, Observable, of, startWith, Subject, switchMap, takeUntil, tap} from "rxjs";
+import {delay, Observable, of, startWith, Subject, switchMap, takeUntil, tap} from "rxjs";
 
 @Component({
   selector: 'app-heroes-list',
@@ -31,6 +31,8 @@ export class HeroesListComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    //listen to the reload event to retrigger the heroes data
+    //and add a small delay to show the loading spinner as example
     this.reload$.pipe(
       startWith({}),
       takeUntil(this.destroy$),
@@ -53,6 +55,7 @@ export class HeroesListComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   getAllHeroes(): Observable<HeroDto[]> {
+    //get all heroes as an observable to be used in the reload event listening.
     return this.heroesService.getAllHeroes().pipe(tap((data: HeroDto[]) => {
       const heroes = data.map((hero: HeroDto) => ({
         id: hero.id,
@@ -67,6 +70,7 @@ export class HeroesListComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   applyFilter(event: Event): void {
+    //out of the box functionality of material table to filter values
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
 
@@ -76,6 +80,8 @@ export class HeroesListComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   deleteHero(id: number): void {
+    //open a confirmation dialog if the user clicks on the delete icon
+    //and if it's confirmed, call the service to delete it
     const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
       data: {
         title: 'Confirm deletion of hero',
