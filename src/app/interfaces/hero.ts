@@ -1,5 +1,5 @@
 export interface HeroDto {
-  id: number;
+  id?: number;
   name: string;
   slug: string;
   appearance: AppearanceDto;
@@ -13,8 +13,9 @@ export interface AppearanceDto {
 }
 
 export interface Hero {
-  id: number;
+  id?: number;
   name: string;
+  gender: string;
   slug: string;
   hairColor: string;
 }

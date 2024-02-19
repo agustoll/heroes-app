@@ -2,44 +2,73 @@
 
 <mat-form-field>
   <mat-label>Filter</mat-label>
-  <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Mia" #input>
+  <input matInput (keyup)="applyFilter($event)" placeholder="Super" #input>
 </mat-form-field>
 
-<div class="mat-elevation-z8">
-  <table mat-table [dataSource]="dataSource" matSort>
+<div class="container mat-elevation-z8">
+  <div class="loading-shade"
+       *ngIf="isLoadingResults">
+    <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
+    </div>
 
-    <!-- ID Column -->
-    <ng-container matColumnDef="id">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
-      <td mat-cell *matCellDef="let row"> {{row.id}} </td>
-    </ng-container>
+  <div class="table-container">
+    <table mat-table [dataSource]="dataSource" >
+      <!-- ID Column -->
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef> ID </th>
+        <td mat-cell *matCellDef="let row"> {{row.id}} </td>
+      </ng-container>
 
-    <!-- Slug Column -->
-    <ng-container matColumnDef="slug">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Slug </th>
-      <td mat-cell *matCellDef="let row"> {{row.slug}} </td>
-    </ng-container>
+      <!-- Slug Column -->
+      <ng-container matColumnDef="slug">
+        <th mat-header-cell *matHeaderCellDef> Slug </th>
+        <td mat-cell *matCellDef="let row"> {{row.slug}} </td>
+      </ng-container>
 
-    <!-- Name Column -->
-    <ng-container matColumnDef="name">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
-      <td mat-cell *matCellDef="let row"> {{row.name}} </td>
-    </ng-container>
+      <!-- Gender Column -->
+      <ng-container matColumnDef="gender">
+        <th mat-header-cell *matHeaderCellDef> Gender </th>
+        <td mat-cell *matCellDef="let row"> {{row.gender}} </td>
+      </ng-container>
 
-    <!-- Hair Color Column -->
-    <ng-container matColumnDef="hairColor">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Hair color </th>
-      <td mat-cell *matCellDef="let row"> {{row.hairColor}} </td>
-    </ng-container>
+      <!-- Name Column -->
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef> Name </th>
+        <td mat-cell *matCellDef="let row"> {{row.name}} </td>
+      </ng-container>
 
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      <!-- Hair Color Column -->
+      <ng-container matColumnDef="hairColor">
+        <th mat-header-cell *matHeaderCellDef> Hair color </th>
+        <td mat-cell *matCellDef="let row"> {{row.hairColor}} </td>
+      </ng-container>
 
-    <!-- Row shown when there is no matching data. -->
-    <tr class="mat-row" *matNoDataRow>
-      <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
-    </tr>
-  </table>
+      <!-- Actions Column -->
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef> Actions </th>
+        <td mat-cell *matCellDef="let element">
+          <div class="actions-wrapper">
+            <button mat-icon-button color="primary" [routerLink]="['/hero', element.id]">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-icon-button color="primary" (click)="deleteHero(element.id)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </div>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+      <!-- Row shown when there is no matching data. -->
+      <ng-container *ngIf="!isLoadingResults">
+        <tr class="mat-row" *matNoDataRow>
+          <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+        </tr>
+      </ng-container>
+    </table>
+  </div>
 
   <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
 </div>

@@ -1,0 +1,27 @@
+.basic-info-wrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  & > mat-form-field {
+    display: inline-block;
+    width: 100%;
+    vertical-align: middle;
+  }
+
+  & > mat-form-field:nth-child(1) {
+    margin-right: 10px;
+  }
+}
+
+.appearance-info-wrapper mat-form-field {
+  margin-right: 10px;
+}
+
+.buttons-wrapper {
+  float: right;
+
+  & > button:last-child {
+    margin-left: 10px;
+  }
+}

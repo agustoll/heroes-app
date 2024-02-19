@@ -1,15 +1,42 @@
 :host {
-.create-hero-btn {
-  float: right;
-  margin-bottom: 20px;
+  .create-hero-btn {
+    float: right;
+    margin-bottom: 20px;
+  }
+
+  .mat-mdc-form-field {
+    font-size: 14px;
+    width: 100%;
+  }
+
+  .container {
+    position: relative;
+  }
+
+  .table-container {
+    position: relative;
+    min-height: 200px;
+  }
+
+  td, th {
+    width: 25%;
+  }
+
+  .loading-shade {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 56px;
+    right: 0;
+    background: rgba(0, 0, 0, 0.15);
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .actions-wrapper {
+    display: flex;
+  }
 }
 
-.mat-mdc-form-field {
-  font-size: 14px;
-  width: 100%;
-}
-
-td, th {
-  width: 25%;
-}
-}

@@ -1,1 +1,37 @@
-<p>hero works!</p>
+<form [formGroup]="form">
+  <div class="content-wrapper">
+    <div class="basic-info-wrapper">
+      <mat-form-field appearance="fill">
+        <mat-label>Hero's name</mat-label>
+        <input matInput appUppercase formControlName="name">
+        <mat-error *ngIf="form.get('name')?.hasError('required')">Name is required</mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Slug</mat-label>
+        <input matInput formControlName="slug">
+      </mat-form-field>
+    </div>
+    <div class="appearance-info-wrapper">
+      <mat-form-field appearance="fill">
+        <mat-label>Gender</mat-label>
+        <mat-select formControlName="gender">
+          <mat-option value="Male">Male</mat-option>
+          <mat-option value="Female">Female</mat-option>
+          <mat-option value="Other">Other</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Hair color</mat-label>
+        <mat-select formControlName="hairColor">
+          <mat-option value="Black">Black</mat-option>
+          <mat-option value="Brown">Brown</mat-option>
+          <mat-option value="Blond">Blond</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="buttons-wrapper">
+      <button mat-raised-button routerLink="/">Back</button>
+      <button mat-raised-button color="primary" (click)="save()">Save</button>
+    </div>
+  </div>
+</form>
